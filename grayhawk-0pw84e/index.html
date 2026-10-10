@@ -205,11 +205,10 @@ window.BCH_COLLECTION = {
 };
 window.BCH_DEFAULT_CONTACT = {
   name: "Christian",
-  phoneDisplay: "(716) 354-8950",
-  phoneE164: "+17163548950",
   email: "leasing@buffalocorphousing.com",
   website: "buffalocorphousing.com"
 };
+/* Contact is email only (address + Copy button). No phone, no texting, no mailto links, no form. */
 </script>
 <style>
 :root{
@@ -324,6 +323,35 @@ footer .ln{display:flex;flex-wrap:wrap;gap:6px 18px}
   body{padding-bottom:72px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* contact modal (email + copy) */
+button.btn{font-family:inherit;line-height:1.2}
+html.noscroll,html.noscroll body{overflow:hidden}
+.modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(20,30,40,.55);opacity:0;transition:opacity .18s ease}
+.modal[hidden]{display:none}
+.modal.open{opacity:1}
+.modal .sheet{position:relative;width:100%;max-width:560px;max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;background:var(--card);border-radius:var(--radius);box-shadow:0 24px 64px rgba(20,30,40,.35);padding:26px 26px 22px;transform:translateY(8px);transition:transform .18s ease}
+.modal.open .sheet{transform:none}
+.modal h2{margin:0 40px 4px 0;font-size:22px;line-height:1.2;letter-spacing:-.01em}
+.modal .sub{margin:0 0 18px;color:var(--muted);font-size:14.5px}
+.modal .x{position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;border:0;background:#f3eee6;color:var(--ink);font-size:24px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
+.modal .x:hover{background:#ebe3d7}
+.mc-addr{display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:16px}
+.mc-email{flex:1 1 100%;min-width:0;font-size:clamp(19px,4.8vw,23px);font-weight:750;letter-spacing:-.01em;color:var(--ink);overflow-wrap:anywhere;line-height:1.25}
+.btn.mc-copy{flex:1 1 100%;min-width:132px;padding:12px 18px;font-size:15px}
+.mc-subj{margin-top:16px}
+.mc-label{margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mc-subjrow{display:flex;align-items:center;gap:10px;border:1px dashed #d9d2c7;border-radius:12px;padding:9px 10px 9px 12px}
+.mc-subjtext{flex:1;min-width:0;font-size:15px;color:#34404a;overflow-wrap:anywhere}
+.btn.btn-copy{padding:5px 10px;font-size:13px;border-radius:8px;min-width:72px}
+.btn.btn-copy.ok,.btn.mc-copy.ok{background:var(--ok);color:#fff;border-color:var(--ok)}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;padding:0}
+footer .copyline{display:inline-flex;align-items:center;gap:8px}
+@media (max-width:640px){
+  .modal{padding:0;align-items:flex-end}
+  .modal .sheet{max-width:none;max-height:92vh;max-height:92dvh;border-radius:18px 18px 0 0;padding:22px 16px calc(18px + env(safe-area-inset-bottom));transform:translateY(24px)}
+  .mc-addr{padding:14px}
+  .btn.mc-copy{flex:1 1 100%}
+}
 </style>
 </head>
 <body>
@@ -346,7 +374,7 @@ footer .ln{display:flex;flex-wrap:wrap;gap:6px 18px}
     <ul class="pills" id="pills"></ul>
     <div class="cta">
       <a class="btn btn-primary" id="heroCta" href="#">See available homes</a>
-      <a class="btn btn-ghost js-mail" href="#">Email <span class="js-name"></span></a>
+      <button type="button" class="btn btn-ghost js-req" data-kind="contact"><span>Contact <span class="js-name"></span></span></button>
     </div>
   </div>
   <svg class="ridge" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path fill="#faf7f2" d="M0 90V62l90-18 70 14 110-38 90 30 80-12 120 26 90-40 110 34 80-10 120 22 100-30 90 18 110-16 80 14 100-8v104z"/></svg>
@@ -370,10 +398,10 @@ footer .ln{display:flex;flex-wrap:wrap;gap:6px 18px}
       <div class="band">
         <div>
           <h2>Ready to hold a home?</h2>
-          <p>Reach <span class="js-name"></span> directly. Tell us your dates and who's staying, and we'll take it from there.</p>
+          <p>Email <span class="js-name"></span> your dates and who's staying, and we'll take it from there.</p>
         </div>
         <div class="cta">
-          <a class="btn btn-primary js-mail" href="#">Email <span class="js-name"></span></a>
+          <button type="button" class="btn btn-primary js-req">Send a request</button>
         </div>
       </div>
     </div>
@@ -385,14 +413,31 @@ footer .ln{display:flex;flex-wrap:wrap;gap:6px 18px}
     <div><b style="color:var(--ink)">Buffalo Corporate Housing LLC</b><br>Furnished monthly housing</div>
     <div class="ln">
       <span>Contact: <span class="js-name"></span></span>
-      <a class="js-mail js-email-text" href="#"></a>
+      <span class="copyline"><span class="js-email-text"></span><button type="button" class="btn btn-ghost btn-copy js-copy" data-copy="email" data-label="Copy">Copy</button></span>
       <a class="js-web" href="#" rel="noopener"></a>
     </div>
   </div>
 </footer>
 
 <div class="mbar">
-  <a class="btn btn-primary js-mail" href="#">Email <span class="js-name"></span></a>
+  <button type="button" class="btn btn-primary js-req">Request a home</button>
+</div>
+
+<div class="modal" id="inq" role="dialog" aria-modal="true" aria-labelledby="inqTitle" aria-describedby="inqSub" hidden>
+  <div class="sheet">
+    <button type="button" class="x" data-close aria-label="Close">&times;</button>
+    <h2 id="inqTitle">Request a home</h2>
+    <p class="sub" id="inqSub">Email <span class="js-name"></span> with your dates and who's staying, and we'll confirm availability.</p>
+    <div class="mc-addr">
+      <span class="mc-email js-email-text"></span>
+      <button type="button" class="btn btn-primary mc-copy js-copy" data-copy="email" data-label="Copy email">Copy email</button>
+    </div>
+    <div class="mc-subj">
+      <p class="mc-label">Suggested subject line</p>
+      <div class="mc-subjrow"><span class="mc-subjtext" id="inqSubj"></span><button type="button" class="btn btn-ghost btn-copy js-copy" data-copy="subject" data-label="Copy">Copy</button></div>
+    </div>
+    <p class="sr" id="copyStatus" role="status" aria-live="polite"></p>
+  </div>
 </div>
 
 <script>
@@ -402,8 +447,6 @@ footer .ln{display:flex;flex-wrap:wrap;gap:6px 18px}
   const c = Object.assign({}, window.BCH_DEFAULT_CONTACT, D.contact || {});
   const $ = id => document.getElementById(id);
   const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
-  const tel = "tel:" + c.phoneE164, sms = "sms:" + c.phoneE164;
-  const mailto = (subj, body) => "mailto:" + c.email + "?subject=" + encodeURIComponent(subj) + (body ? "&body=" + encodeURIComponent(body) : "");
   const money = n => "$" + Number(n).toLocaleString("en-US");
   const ICONS = {
     home:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
@@ -429,11 +472,6 @@ footer .ln{display:flex;flex-wrap:wrap;gap:6px 18px}
   $("pills").innerHTML = (D.pills || []).map(p => "<li>" + esc(p) + "</li>").join("");
 
   document.querySelectorAll(".js-name").forEach(e => e.textContent = c.name);
-  document.querySelectorAll(".js-tel").forEach(a => a.href = tel);
-  document.querySelectorAll(".js-sms").forEach(a => a.href = sms);
-  const gSubj = D.inquiry_subject || ("Furnished housing inquiry: " + (D.eyebrow || D.title || ""));
-  document.querySelectorAll(".js-mail").forEach(a => a.href = mailto(gSubj, "Hi " + c.name + ",\n\nI'm interested in a furnished monthly home.\n\nDates:\nNumber of guests:\nPets:\n\nThanks!"));
-  document.querySelectorAll(".js-phone-text").forEach(a => a.textContent = c.phoneDisplay);
   document.querySelectorAll(".js-email-text").forEach(a => a.textContent = c.email);
   document.querySelectorAll(".js-web").forEach(a => { a.href = "https://" + c.website; a.textContent = c.website; });
 
@@ -441,12 +479,10 @@ footer .ln{display:flex;flex-wrap:wrap;gap:6px 18px}
   const units = D.units || [];
   $("nav").innerHTML = sections.map(s => '<a class="link" href="#' + esc(s.id) + '">' + esc(s.nav || s.title) + '</a>').join("") +
     (D.included && D.included.length ? '<a class="link" href="#included">What\'s included</a>' : "") +
-    '<a class="btn btn-primary btn-sm" href="' + mailto("Furnished housing inquiry") + '">Email ' + esc(c.name) + '</a>';
+    '<button type="button" class="btn btn-primary btn-sm js-req" data-kind="contact">Contact ' + esc(c.name) + '</button>';
   $("heroCta").href = "#" + sections[0].id;
 
   const houseIcon = '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M8 30L32 10l24 20"/><path d="M14 26v26h36V26"/><path d="M27 52V38h10v14"/><circle cx="48" cy="14" r="4"/></svg>';
-  const phoneSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>';
-  const smsSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
 
   const specsOf = u => {
     const s = [];
@@ -472,9 +508,6 @@ footer .ln{display:flex;flex-wrap:wrap;gap:6px 18px}
 
   function card(u){
     const photos = u.photos || [];
-    const areaPlain = (u.area || "").replace(/\s*·\s*/g, ", ");
-    const subj = "Request: " + u.name + (areaPlain ? " (" + areaPlain + ")" : "");
-    const body = "Hi " + c.name + ",\n\nI'd like to request the " + u.name + ".\n\nDesired move-in:\nDesired move-out:\nNumber of guests:\nPets:\n\nThanks!";
     let media;
     if (photos.length) {
       media = '<div class="slides" tabindex="0" aria-label="Photos of ' + esc(u.name) + '">' +
@@ -501,7 +534,7 @@ footer .ln{display:flex;flex-wrap:wrap;gap:6px 18px}
           '<div>' + (u.price != null ? '<div class="price">' + money(u.price) + ' <small>/ month</small></div>' : '<div class="price" style="font-size:18px">Pricing on request</div>') +
           (avail ? '<div class="avail">' + esc(avail) + '</div>' : '') + '</div>' +
           '<div class="actions">' +
-            '<a class="btn btn-primary" href="' + mailto(subj, body) + '">Request this home</a>' +
+            '<button type="button" class="btn btn-primary js-req" data-home="' + esc(u.name) + '">Request this home</button>' +
           '</div>' +
         '</div>' +
       '</div>';
@@ -524,6 +557,76 @@ footer .ln{display:flex;flex-wrap:wrap;gap:6px 18px}
     if (D.included_intro) $("incIntro").textContent = D.included_intro;
     $("incList").innerHTML = D.included.map(i => '<li><span class="ic">' + svg(i.icon) + '</span><div><b>' + esc(i.title) + '</b>' + (i.text ? '<span>' + esc(i.text) + '</span>' : '') + '</div></li>').join("");
   }
+  /* ---- contact modal: email address + suggested subject, both with Copy buttons ---- */
+  const GENERIC = D.inquiry_subject || "Furnished housing inquiry";
+  const LEAD = "Email " + c.name + " with your dates and who's staying, and we'll confirm availability.";
+  function modalFor(t){
+    const home = t.getAttribute("data-home"), kind = t.getAttribute("data-kind");
+    if (home) return { title: "Request this home", text: LEAD, subject: "Inquiry: " + home };
+    if (kind === "contact") return { title: "Contact " + c.name, text: LEAD, subject: GENERIC };
+    return { title: "Request a home", text: LEAD, subject: GENERIC };
+  }
+  const inq = $("inq");
+  let lastFocus = null, subject = "";
+  function openInq(t){
+    const o = modalFor(t);
+    subject = o.subject;
+    $("inqTitle").textContent = o.title;
+    $("inqSub").textContent = o.text;
+    $("inqSubj").textContent = subject;
+    $("copyStatus").textContent = "";
+    lastFocus = document.activeElement;
+    inq.hidden = false;
+    document.documentElement.classList.add("noscroll");
+    requestAnimationFrame(() => { inq.classList.add("open"); try { inq.querySelector(".mc-copy").focus({preventScroll:true}); } catch(e) {} });
+  }
+  function closeInq(){
+    inq.classList.remove("open"); inq.hidden = true;
+    document.documentElement.classList.remove("noscroll");
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  document.addEventListener("click", e => {
+    const t = e.target.closest(".js-req");
+    if (t) { e.preventDefault(); openInq(t); }
+  });
+  inq.addEventListener("click", e => { if (e.target === inq || e.target.closest("[data-close]")) closeInq(); });
+  document.addEventListener("keydown", e => {
+    if (inq.hidden) return;
+    if (e.key === "Escape") { e.preventDefault(); closeInq(); return; }
+    if (e.key === "Tab") {   // keep focus inside the dialog
+      const f = [...inq.querySelectorAll("button,a[href]")].filter(x => !x.disabled && x.offsetParent !== null && x.tabIndex >= 0);
+      if (!f.length) return;
+      if (!inq.contains(document.activeElement)) { e.preventDefault(); f[0].focus(); return; }
+      if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length-1].focus(); }
+      else if (!e.shiftKey && document.activeElement === f[f.length-1]) { e.preventDefault(); f[0].focus(); }
+    }
+  });
+
+  function copyText(t){
+    const fallback = () => {
+      const ta = document.createElement("textarea");
+      ta.value = t; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.top = "-100vh"; ta.style.opacity = "0";
+      (inq.hidden ? document.body : inq).appendChild(ta); ta.select(); ta.setSelectionRange(0, t.length);
+      let ok = false; try { ok = document.execCommand("copy"); } catch(e) {}
+      ta.remove(); return ok;
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(t).then(() => true, fallback);
+    return Promise.resolve(fallback());
+  }
+  document.addEventListener("click", e => {
+    const b = e.target.closest(".js-copy");
+    if (!b) return;
+    e.preventDefault();
+    const isSubj = b.getAttribute("data-copy") === "subject";
+    const text = isSubj ? subject : c.email;
+    copyText(text).then(ok => {
+      if (ok === false) return;
+      b.textContent = "Copied!"; b.classList.add("ok"); clearTimeout(b._t);
+      if (!inq.hidden) $("copyStatus").textContent = (isSubj ? "Subject line" : "Email address") + " copied";
+      b._t = setTimeout(() => { b.textContent = b.getAttribute("data-label") || "Copy"; b.classList.remove("ok"); }, 1800);
+    });
+  });
+
 })();
 </script>
 </body>
