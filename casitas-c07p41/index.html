@@ -238,11 +238,9 @@ window.BCH_COLLECTION = {
 window.BCH_DEFAULT_CONTACT = {
   name: "Christian",
   email: "leasing@buffalocorphousing.com",
-  website: "buffalocorphousing.com",
-  /* Inquiry form posts here (AJAX, JSON). Change to switch the form handler. */
-  formEndpoint: "https://formsubmit.co/ajax/leasing@buffalocorphousing.com"
+  website: "buffalocorphousing.com"
 };
-/* No phone calling or texting on these pages: contact is the on-page form, email as backup. */
+/* Contact is email only (address + Copy button). No phone, no texting, no mailto links, no form. */
 </script>
 <style>
 :root{
@@ -357,7 +355,7 @@ footer .ln{display:flex;flex-wrap:wrap;gap:6px 18px}
   body{padding-bottom:72px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-/* inquiry form (modal) */
+/* contact modal (email + copy) */
 button.btn{font-family:inherit;line-height:1.2}
 html.noscroll,html.noscroll body{overflow:hidden}
 .modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(20,30,40,.55);opacity:0;transition:opacity .18s ease}
@@ -369,35 +367,22 @@ html.noscroll,html.noscroll body{overflow:hidden}
 .modal .sub{margin:0 0 18px;color:var(--muted);font-size:14.5px}
 .modal .x{position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;border:0;background:#f3eee6;color:var(--ink);font-size:24px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
 .modal .x:hover{background:#ebe3d7}
-.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px}
-.fgrid .full{grid-column:1/-1}
-.fld{min-width:0}
-.fld label{display:block;font-size:13px;font-weight:650;color:#3b4650;margin:0 0 5px}
-.fld label .opt{font-weight:500;color:var(--muted)}
-.fld input,.fld select,.fld textarea{display:block;width:100%;min-width:0;min-height:44px;font:inherit;font-size:16px;color:var(--ink);background:#fff;border:1px solid #d9d2c7;border-radius:10px;padding:10px 12px;-webkit-appearance:none;appearance:none}
-.fld select{background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235c6873' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 10px center/18px;padding-right:36px}
-.fld input[readonly]{background:var(--bg);color:#3b4650}
-.fld textarea{min-height:96px;resize:vertical}
-.fld input:focus,.fld select:focus,.fld textarea:focus{outline:2px solid var(--navy-2);outline-offset:1px;border-color:var(--navy-2)}
-.hp{display:none!important}
-.fsend{width:100%;margin-top:16px}
-.fsend[disabled]{opacity:.75;cursor:progress}
-.ferr{margin:12px 0 0;background:#fbefec;color:#8a2f22;border-radius:10px;padding:10px 12px;font-size:14px}
-.ferr .btn-copy{margin-left:6px}
-.copyrow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 8px;margin:14px 0 0;font-size:14px;color:var(--muted)}
-.copyrow .addr{font-weight:650;color:var(--ink);word-break:break-all}
-.btn.btn-copy{padding:4px 10px;font-size:13px;border-radius:8px;min-width:64px}
-.done{text-align:center;padding:18px 4px 6px}
-.done .ok{width:56px;height:56px;margin:0 auto 12px;border-radius:50%;background:#eef5f1;color:var(--ok);display:grid;place-items:center}
-.done .ok svg{width:28px;height:28px}
-.done h2{margin:0 0 6px}
-.done p{margin:0 0 18px;color:#34404a}
+.mc-addr{display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:16px}
+.mc-email{flex:1 1 100%;min-width:0;font-size:clamp(19px,4.8vw,23px);font-weight:750;letter-spacing:-.01em;color:var(--ink);overflow-wrap:anywhere;line-height:1.25}
+.btn.mc-copy{flex:1 1 100%;min-width:132px;padding:12px 18px;font-size:15px}
+.mc-subj{margin-top:16px}
+.mc-label{margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mc-subjrow{display:flex;align-items:center;gap:10px;border:1px dashed #d9d2c7;border-radius:12px;padding:9px 10px 9px 12px}
+.mc-subjtext{flex:1;min-width:0;font-size:15px;color:#34404a;overflow-wrap:anywhere}
+.btn.btn-copy{padding:5px 10px;font-size:13px;border-radius:8px;min-width:72px}
+.btn.btn-copy.ok,.btn.mc-copy.ok{background:var(--ok);color:#fff;border-color:var(--ok)}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;padding:0}
 footer .copyline{display:inline-flex;align-items:center;gap:8px}
 @media (max-width:640px){
   .modal{padding:0;align-items:flex-end}
   .modal .sheet{max-width:none;max-height:92vh;max-height:92dvh;border-radius:18px 18px 0 0;padding:22px 16px calc(18px + env(safe-area-inset-bottom));transform:translateY(24px)}
-  .fgrid{grid-template-columns:1fr 1fr;gap:10px}
-  .fgrid .m-full{grid-column:1/-1}
+  .mc-addr{padding:14px}
+  .btn.mc-copy{flex:1 1 100%}
 }
 </style>
 </head>
@@ -421,7 +406,7 @@ footer .copyline{display:inline-flex;align-items:center;gap:8px}
     <ul class="pills" id="pills"></ul>
     <div class="cta">
       <a class="btn btn-primary" id="heroCta" href="#">See available homes</a>
-      <button type="button" class="btn btn-ghost js-req"><span>Contact <span class="js-name"></span></span></button>
+      <button type="button" class="btn btn-ghost js-req" data-kind="contact"><span>Contact <span class="js-name"></span></span></button>
     </div>
   </div>
   <svg class="ridge" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path fill="#faf7f2" d="M0 90V62l90-18 70 14 110-38 90 30 80-12 120 26 90-40 110 34 80-10 120 22 100-30 90 18 110-16 80 14 100-8v104z"/></svg>
@@ -445,7 +430,7 @@ footer .copyline{display:inline-flex;align-items:center;gap:8px}
       <div class="band">
         <div>
           <h2>Ready to hold a home?</h2>
-          <p>Send <span class="js-name"></span> a quick request. Tell us your dates and who's staying, and we'll take it from there.</p>
+          <p>Email <span class="js-name"></span> your dates and who's staying, and we'll take it from there.</p>
         </div>
         <div class="cta">
           <button type="button" class="btn btn-primary js-req">Send a request</button>
@@ -460,7 +445,7 @@ footer .copyline{display:inline-flex;align-items:center;gap:8px}
     <div><b style="color:var(--ink)">Buffalo Corporate Housing LLC</b><br>Furnished monthly housing</div>
     <div class="ln">
       <span>Contact: <span class="js-name"></span></span>
-      <span class="copyline"><span class="js-email-text"></span><button type="button" class="btn btn-ghost btn-copy js-copy">Copy</button></span>
+      <span class="copyline"><span class="js-email-text"></span><button type="button" class="btn btn-ghost btn-copy js-copy" data-copy="email" data-label="Copy">Copy</button></span>
       <a class="js-web" href="#" rel="noopener"></a>
     </div>
   </div>
@@ -470,35 +455,20 @@ footer .copyline{display:inline-flex;align-items:center;gap:8px}
   <button type="button" class="btn btn-primary js-req">Request a home</button>
 </div>
 
-<div class="modal" id="inq" role="dialog" aria-modal="true" aria-labelledby="inqTitle" hidden>
+<div class="modal" id="inq" role="dialog" aria-modal="true" aria-labelledby="inqTitle" aria-describedby="inqSub" hidden>
   <div class="sheet">
     <button type="button" class="x" data-close aria-label="Close">&times;</button>
-    <div id="inqMain">
-      <h2 id="inqTitle">Request a home</h2>
-      <p class="sub">Send <span class="js-name"></span> your dates and who's staying. We'll confirm availability and reply by email.</p>
-      <form id="inqForm" autocomplete="on">
-        <input type="text" class="hp" name="_honey" id="fHoney" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
-        <div class="fgrid">
-          <div class="fld full"><label for="fName">Name</label><input id="fName" name="name" type="text" required autocomplete="name"></div>
-          <div class="fld m-full"><label for="fEmail">Email</label><input id="fEmail" name="email" type="email" required autocomplete="email" inputmode="email"></div>
-          <div class="fld m-full"><label for="fPhone">Phone <span class="opt">(optional)</span></label><input id="fPhone" name="phone" type="tel" autocomplete="tel"></div>
-          <div class="fld"><label for="fIn">Move-in date <span class="opt">(optional)</span></label><input id="fIn" name="move_in" type="date"></div>
-          <div class="fld"><label for="fOut">Move-out date <span class="opt">(optional)</span></label><input id="fOut" name="move_out" type="date"></div>
-          <div class="fld m-full"><label for="fGuests">Number of guests <span class="opt">(optional)</span></label><input id="fGuests" name="guests" type="number" min="1" max="20" inputmode="numeric"></div>
-          <div class="fld m-full"><label for="fHome">Home of interest</label><select id="fHome" name="home"></select></div>
-          <div class="fld full"><label for="fMsg">Message <span class="opt">(optional)</span></label><textarea id="fMsg" name="message" rows="3"></textarea></div>
-        </div>
-        <button type="submit" class="btn btn-primary fsend" id="fSend">Send request</button>
-        <p class="ferr" id="inqErr" role="alert" hidden>Something went wrong. Please email us at <b class="js-email-text"></b> <button type="button" class="btn btn-ghost btn-copy js-copy">Copy</button></p>
-        <p class="copyrow">Prefer email? <span class="addr js-email-text"></span> <button type="button" class="btn btn-ghost btn-copy js-copy">Copy</button></p>
-      </form>
+    <h2 id="inqTitle">Request a home</h2>
+    <p class="sub" id="inqSub">Email <span class="js-name"></span> with your dates and who's staying, and we'll confirm availability.</p>
+    <div class="mc-addr">
+      <span class="mc-email js-email-text"></span>
+      <button type="button" class="btn btn-primary mc-copy js-copy" data-copy="email" data-label="Copy email">Copy email</button>
     </div>
-    <div class="done" id="inqDone" hidden>
-      <div class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-      <h2>Request sent</h2>
-      <p role="status">Thanks! <span class="js-name"></span> will get back to you by email shortly.</p>
-      <button type="button" class="btn btn-primary" data-close>Close</button>
+    <div class="mc-subj">
+      <p class="mc-label">Suggested subject line</p>
+      <div class="mc-subjrow"><span class="mc-subjtext" id="inqSubj"></span><button type="button" class="btn btn-ghost btn-copy js-copy" data-copy="subject" data-label="Copy">Copy</button></div>
     </div>
+    <p class="sr" id="copyStatus" role="status" aria-live="polite"></p>
   </div>
 </div>
 
@@ -541,7 +511,7 @@ footer .copyline{display:inline-flex;align-items:center;gap:8px}
   const units = D.units || [];
   $("nav").innerHTML = sections.map(s => '<a class="link" href="#' + esc(s.id) + '">' + esc(s.nav || s.title) + '</a>').join("") +
     (D.included && D.included.length ? '<a class="link" href="#included">What\'s included</a>' : "") +
-    '<button type="button" class="btn btn-primary btn-sm js-req">Contact ' + esc(c.name) + '</button>';
+    '<button type="button" class="btn btn-primary btn-sm js-req" data-kind="contact">Contact ' + esc(c.name) + '</button>';
   $("heroCta").href = "#" + sections[0].id;
 
   const houseIcon = '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M8 30L32 10l24 20"/><path d="M14 26v26h36V26"/><path d="M27 52V38h10v14"/><circle cx="48" cy="14" r="4"/></svg>';
@@ -619,25 +589,28 @@ footer .copyline{display:inline-flex;align-items:center;gap:8px}
     if (D.included_intro) $("incIntro").textContent = D.included_intro;
     $("incList").innerHTML = D.included.map(i => '<li><span class="ic">' + svg(i.icon) + '</span><div><b>' + esc(i.title) + '</b>' + (i.text ? '<span>' + esc(i.text) + '</span>' : '') + '</div></li>').join("");
   }
-  const NOT_SURE = "Not sure yet";
-  $("fHome").innerHTML = units.map(u => '<option value="' + esc(u.name) + '">' + esc(u.name) + '</option>').join("") +
-    '<option value="' + NOT_SURE + '">' + NOT_SURE + '</option>';
-  const setHome = h => { const names = units.map(u => u.name); fHome.value = h && names.indexOf(h) >= 0 ? h : NOT_SURE; };
-  /* ---- inquiry form (modal, AJAX to FormSubmit) ---- */
-  const inq = $("inq"), form = $("inqForm"), fHome = $("fHome"), fSend = $("fSend");
-  let lastFocus = null;
-  const resetInq = () => {
-    form.reset(); $("inqErr").hidden = true; $("inqMain").hidden = false; $("inqDone").hidden = true;
-    fSend.disabled = false; fSend.textContent = "Send request"; form.removeAttribute("aria-busy");
-  };
-  function openInq(home, msg){
-    if (!$("inqDone").hidden) resetInq();
-    setHome(home);
-    if (msg && !$("fMsg").value) $("fMsg").value = msg;
+  /* ---- contact modal: email address + suggested subject, both with Copy buttons ---- */
+  const GENERIC = D.inquiry_subject || "Furnished housing inquiry";
+  const LEAD = "Email " + c.name + " with your dates and who's staying, and we'll confirm availability.";
+  function modalFor(t){
+    const home = t.getAttribute("data-home"), kind = t.getAttribute("data-kind");
+    if (home) return { title: "Request this home", text: LEAD, subject: "Inquiry: " + home };
+    if (kind === "contact") return { title: "Contact " + c.name, text: LEAD, subject: GENERIC };
+    return { title: "Request a home", text: LEAD, subject: GENERIC };
+  }
+  const inq = $("inq");
+  let lastFocus = null, subject = "";
+  function openInq(t){
+    const o = modalFor(t);
+    subject = o.subject;
+    $("inqTitle").textContent = o.title;
+    $("inqSub").textContent = o.text;
+    $("inqSubj").textContent = subject;
+    $("copyStatus").textContent = "";
     lastFocus = document.activeElement;
     inq.hidden = false;
     document.documentElement.classList.add("noscroll");
-    requestAnimationFrame(() => { inq.classList.add("open"); try { $("fName").focus({preventScroll:true}); } catch(e) {} });
+    requestAnimationFrame(() => { inq.classList.add("open"); try { inq.querySelector(".mc-copy").focus({preventScroll:true}); } catch(e) {} });
   }
   function closeInq(){
     inq.classList.remove("open"); inq.hidden = true;
@@ -646,15 +619,16 @@ footer .copyline{display:inline-flex;align-items:center;gap:8px}
   }
   document.addEventListener("click", e => {
     const t = e.target.closest(".js-req");
-    if (t) { e.preventDefault(); openInq(t.getAttribute("data-home"), t.getAttribute("data-msg")); }
+    if (t) { e.preventDefault(); openInq(t); }
   });
   inq.addEventListener("click", e => { if (e.target === inq || e.target.closest("[data-close]")) closeInq(); });
   document.addEventListener("keydown", e => {
     if (inq.hidden) return;
     if (e.key === "Escape") { e.preventDefault(); closeInq(); return; }
     if (e.key === "Tab") {   // keep focus inside the dialog
-      const f = [...inq.querySelectorAll("button,input,select,textarea")].filter(x => !x.disabled && x.offsetParent !== null && x.tabIndex >= 0);
+      const f = [...inq.querySelectorAll("button,a[href]")].filter(x => !x.disabled && x.offsetParent !== null && x.tabIndex >= 0);
       if (!f.length) return;
+      if (!inq.contains(document.activeElement)) { e.preventDefault(); f[0].focus(); return; }
       if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length-1].focus(); }
       else if (!e.shiftKey && document.activeElement === f[f.length-1]) { e.preventDefault(); f[0].focus(); }
     }
@@ -664,9 +638,9 @@ footer .copyline{display:inline-flex;align-items:center;gap:8px}
     const fallback = () => {
       const ta = document.createElement("textarea");
       ta.value = t; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.top = "-100vh"; ta.style.opacity = "0";
-      document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, t.length);
+      (inq.hidden ? document.body : inq).appendChild(ta); ta.select(); ta.setSelectionRange(0, t.length);
       let ok = false; try { ok = document.execCommand("copy"); } catch(e) {}
-      document.body.removeChild(ta); return ok;
+      ta.remove(); return ok;
     };
     if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(t).then(() => true, fallback);
     return Promise.resolve(fallback());
@@ -675,37 +649,16 @@ footer .copyline{display:inline-flex;align-items:center;gap:8px}
     const b = e.target.closest(".js-copy");
     if (!b) return;
     e.preventDefault();
-    copyText(c.email).then(() => {
-      b.textContent = "Copied"; clearTimeout(b._t);
-      b._t = setTimeout(() => { b.textContent = "Copy"; }, 1800);
+    const isSubj = b.getAttribute("data-copy") === "subject";
+    const text = isSubj ? subject : c.email;
+    copyText(text).then(ok => {
+      if (ok === false) return;
+      b.textContent = "Copied!"; b.classList.add("ok"); clearTimeout(b._t);
+      if (!inq.hidden) $("copyStatus").textContent = (isSubj ? "Subject line" : "Email address") + " copied";
+      b._t = setTimeout(() => { b.textContent = b.getAttribute("data-label") || "Copy"; b.classList.remove("ok"); }, 1800);
     });
   });
 
-  form.addEventListener("submit", e => {
-    e.preventDefault();
-    if (!form.reportValidity()) return;
-    if ($("fHoney").value) { $("inqMain").hidden = true; $("inqDone").hidden = false; return; }  // bot: pretend, send nothing
-    const home = fHome.value || "Not sure yet";
-    const v = id => $(id).value.trim();
-    const payload = {
-      name: v("fName"), email: v("fEmail"), phone: v("fPhone"),
-      move_in: v("fIn"), move_out: v("fOut"), guests: v("fGuests"),
-      home: home, message: v("fMsg"), Page: location.href,
-      _subject: "BCH inquiry: " + home, _template: "table", _captcha: "false", _honey: ""
-    };
-    $("inqErr").hidden = true;
-    fSend.disabled = true; fSend.textContent = "Sending\u2026"; form.setAttribute("aria-busy", "true");
-    fetch(c.formEndpoint, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(payload) })
-      .then(r => r.json().catch(() => ({})).then(j => {
-        if (!r.ok || !(j.success === true || j.success === "true")) throw new Error("send failed");
-        $("inqMain").hidden = true; $("inqDone").hidden = false;
-        const btn = $("inqDone").querySelector("button"); if (btn) btn.focus();
-      }))
-      .catch(() => {
-        $("inqErr").hidden = false;
-        fSend.disabled = false; fSend.textContent = "Send request"; form.removeAttribute("aria-busy");
-      });
-  });
 })();
 </script>
 </body>
