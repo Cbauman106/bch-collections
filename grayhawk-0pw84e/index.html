@@ -57,7 +57,7 @@ window.BCH_COLLECTION = {
   {
    "icon": "person",
    "title": "One point of contact",
-   "text": "Sal handles your questions from first inquiry through move-out."
+   "text": "Christian handles your questions from first inquiry through move-out."
   },
   {
    "icon": "check",
@@ -110,8 +110,16 @@ window.BCH_COLLECTION = {
     "Min. stay": "3 months"
    },
    "available": "Nov 17, 2026",
-   "price": 3290,
-   "photos": []
+   "price": 3050,
+   "photos": [
+    "img/grayhawk-1br-1.jpg",
+    "img/grayhawk-1br-2.jpg",
+    "img/grayhawk-1br-3.jpg",
+    "img/grayhawk-1br-4.jpg",
+    "img/grayhawk-1br-5.jpg",
+    "img/grayhawk-1br-6.jpg"
+   ],
+   "description": "A ground-floor end-unit condo in a gated, resort-style community in Grayhawk. The 828 sq ft layout has a queen bedroom with direct access to a private patio, a walk-in closet, a full kitchen with granite counters, and an in-unit washer and dryer. The community has a pool, hot tub and fitness center, and the condo comes with covered parking."
   },
   {
    "id": "grayhawk-2br",
@@ -142,8 +150,16 @@ window.BCH_COLLECTION = {
     "Min. stay": "3 months"
    },
    "available": "Now",
-   "price": 3390,
-   "photos": []
+   "price": 3150,
+   "photos": [
+    "img/grayhawk-2br-1.jpg",
+    "img/grayhawk-2br-2.jpg",
+    "img/grayhawk-2br-3.jpg",
+    "img/grayhawk-2br-4.jpg",
+    "img/grayhawk-2br-5.jpg",
+    "img/grayhawk-2br-6.jpg"
+   ],
+   "description": "A single-level, ground-floor two-bedroom condo in a gated resort community in Grayhawk. The 1,250 sq ft layout has a king bedroom and a queen bedroom, each with its own private bath, plus a full kitchen, washer and dryer, garage parking and a security alarm. It's fully furnished, with utilities and internet included."
   },
   {
    "id": "kierland-1br",
@@ -171,13 +187,24 @@ window.BCH_COLLECTION = {
     "Min. stay": "1 month"
    },
    "available": "Nov 1, 2026",
-   "price": 3190,
-   "photos": []
+   "price": 3000,
+   "photos": [
+    "img/kierland-1br-1.jpg",
+    "img/kierland-1br-2.jpg",
+    "img/kierland-1br-3.jpg",
+    "img/kierland-1br-4.jpg",
+    "img/kierland-1br-5.jpg",
+    "img/kierland-1br-6.jpg"
+   ],
+   "description": "A furnished one-bedroom condo in a quiet, well-kept complex about two blocks from the shops and restaurants of Kierland Commons and Scottsdale Quarter. The complex has a pool, hot tub and gym. The condo has a full kitchen, a washer and dryer, and free parking on site."
   }
- ]
+ ],
+ "contact": {
+  "name": "Christian"
+ }
 };
 window.BCH_DEFAULT_CONTACT = {
-  name: "Sal",
+  name: "Christian",
   phoneDisplay: "(716) 354-8950",
   phoneE164: "+17163548950",
   email: "leasing@buffalocorphousing.com",
@@ -319,7 +346,7 @@ footer .ln{display:flex;flex-wrap:wrap;gap:6px 18px}
     <ul class="pills" id="pills"></ul>
     <div class="cta">
       <a class="btn btn-primary" id="heroCta" href="#">See available homes</a>
-      <a class="btn btn-ghost js-tel" href="#">Call or text <span class="js-name"></span></a>
+      <a class="btn btn-ghost js-mail" href="#">Email <span class="js-name"></span></a>
     </div>
   </div>
   <svg class="ridge" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path fill="#faf7f2" d="M0 90V62l90-18 70 14 110-38 90 30 80-12 120 26 90-40 110 34 80-10 120 22 100-30 90 18 110-16 80 14 100-8v104z"/></svg>
@@ -347,8 +374,6 @@ footer .ln{display:flex;flex-wrap:wrap;gap:6px 18px}
         </div>
         <div class="cta">
           <a class="btn btn-primary js-mail" href="#">Email <span class="js-name"></span></a>
-          <a class="btn btn-ghost js-tel" href="#">Call</a>
-          <a class="btn btn-ghost js-sms" href="#">Text</a>
         </div>
       </div>
     </div>
@@ -360,7 +385,6 @@ footer .ln{display:flex;flex-wrap:wrap;gap:6px 18px}
     <div><b style="color:var(--ink)">Buffalo Corporate Housing LLC</b><br>Furnished monthly housing</div>
     <div class="ln">
       <span>Contact: <span class="js-name"></span></span>
-      <a class="js-tel js-phone-text" href="#"></a>
       <a class="js-mail js-email-text" href="#"></a>
       <a class="js-web" href="#" rel="noopener"></a>
     </div>
@@ -368,8 +392,6 @@ footer .ln{display:flex;flex-wrap:wrap;gap:6px 18px}
 </footer>
 
 <div class="mbar">
-  <a class="btn btn-ghost js-tel" href="#">Call</a>
-  <a class="btn btn-ghost js-sms" href="#">Text</a>
   <a class="btn btn-primary js-mail" href="#">Email <span class="js-name"></span></a>
 </div>
 
@@ -419,7 +441,7 @@ footer .ln{display:flex;flex-wrap:wrap;gap:6px 18px}
   const units = D.units || [];
   $("nav").innerHTML = sections.map(s => '<a class="link" href="#' + esc(s.id) + '">' + esc(s.nav || s.title) + '</a>').join("") +
     (D.included && D.included.length ? '<a class="link" href="#included">What\'s included</a>' : "") +
-    '<a class="btn btn-primary btn-sm" href="' + tel + '">Call ' + esc(c.name) + '</a>';
+    '<a class="btn btn-primary btn-sm" href="' + mailto("Furnished housing inquiry") + '">Email ' + esc(c.name) + '</a>';
   $("heroCta").href = "#" + sections[0].id;
 
   const houseIcon = '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M8 30L32 10l24 20"/><path d="M14 26v26h36V26"/><path d="M27 52V38h10v14"/><circle cx="48" cy="14" r="4"/></svg>';
@@ -480,8 +502,6 @@ footer .ln{display:flex;flex-wrap:wrap;gap:6px 18px}
           (avail ? '<div class="avail">' + esc(avail) + '</div>' : '') + '</div>' +
           '<div class="actions">' +
             '<a class="btn btn-primary" href="' + mailto(subj, body) + '">Request this home</a>' +
-            '<a class="btn btn-ghost btn-icon" href="' + tel + '" aria-label="Call ' + esc(c.name) + ' about ' + esc(u.name) + '">' + phoneSvg + '</a>' +
-            '<a class="btn btn-ghost btn-icon" href="' + sms + '" aria-label="Text ' + esc(c.name) + ' about ' + esc(u.name) + '">' + smsSvg + '</a>' +
           '</div>' +
         '</div>' +
       '</div>';
